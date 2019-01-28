@@ -7,6 +7,8 @@ app = Flask(__name__)
 
 slack_token = os.environ['SLACK_API_TOKEN']
 sc = SlackClient(slack_token)
+general_channel = "C93RP3CSG"
+introductions_channel = "CFQV2533L"
 
 @app.route('/', methods=['GET', 'POST'])
 def check():
@@ -26,10 +28,30 @@ def check():
             if (event_type == "app_mention"):
                 sc.api_call(
                     "chat.postMessage",
-                    channel='C93RP3CSG',
-                    text="Hi, I'm Nancy. I will be your assistant. For now this is all I can do!"
+                    channel=general_channel,
+                    text="Hi, I will be your assistant. For now this is all I can do!"
                 )
                 return make_response("", 200)
+            
+            if (event_type == "team_join"):
+                user = events_data["events"]["user"]
+                welcome_template = '''
+
+                Welcome to Cameroon GSoCers workspace. Tell us a little bit about yourself,
+                Name?
+                Location?
+                Specialty?
+                Any specific questions?
+                Remember to put your renames on your profile and a profile pic :)
+                Take note of the channel topic and pinned posts
+                '''
+                sc.api_call(
+                    "chat.postMessage",
+                    channel=general_channel,
+                    text="Hi @" + user["name"] + ", " + welcome_template
+                )
+                return make_response("", 200)
+
         return make_response("Not implemented.", 404)
 
 if __name__ == '__main__':

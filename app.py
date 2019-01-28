@@ -34,7 +34,7 @@ def check():
                 return make_response("", 200)
             
             if (event_type == "team_join"):
-                user = events_data["events"]["user"]
+                user = events_data["event"]["user"]
                 welcome_template = '''
 
                 Welcome to Cameroon GSoCers workspace. Tell us a little bit about yourself,

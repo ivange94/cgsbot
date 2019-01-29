@@ -37,13 +37,13 @@ def check():
                 user = events_data["event"]["user"]
                 welcome_template = '''
 
-                Welcome to Cameroon GSoCers workspace. Tell us a little bit about yourself,
-                Name?
-                Location?
-                Specialty?
-                Any specific questions?
-                Remember to put your renames on your profile and a profile pic :)
-                Take note of the channel topic and pinned posts
+                Welcome to Cameroon GSoCers Workspace. 
+		 Tell us a little bit about yourself, Your Real Names, Location,
+                Specialty/Department, Your Interests, Any specific questions ?
+                Learn Netiquette Rules on http://www.albion.com/netiquette/corerules.html
+		 Learn How To Ask Smart Questions on http://www.catb.org/esr/faqs/smart-questions.html
+                Remember to put your Real Names on your profile and a professional profile picture :)
+                Take note of the channel topic and ALL pinned posts
                 '''
                 sc.api_call(
                     "chat.postMessage",

@@ -35,20 +35,11 @@ def check():
             
             if (event_type == "team_join"):
                 user = events_data["event"]["user"]
-                welcome_template = '''
-
-                Welcome to Cameroon GSoCers Workspace. 
-		 Tell us a little bit about yourself, Your Real Names, Location,
-                Specialty/Department, Your Interests, Any specific questions ?
-                Learn Netiquette Rules on http://www.albion.com/netiquette/corerules.html
-		 Learn How To Ask Smart Questions on http://www.catb.org/esr/faqs/smart-questions.html
-                Remember to put your Real Names on your profile and a professional profile picture :)
-                Take note of the channel topic and ALL pinned posts
-                '''
+                welcome_text = "Welcome to Cameroon GSoCers Workspace. \nTell us a little bit about yourself, Your Real Names, Location, \nSpecialty/Department, Your Interests, Any specific questions ? \nLearn Netiquette Rules on http://www.albion.com/netiquette/corerules.html \nLearn How To Ask Smart Questions on http://www.catb.org/esr/faqs/smart-questions.html \nRemember to put your Real Names on your profile and a professional profile picture :) \nTake note of the channel topic and ALL pinned posts"
                 sc.api_call(
                     "chat.postMessage",
                     channel=general_channel,
-                    text="Hi @" + user["name"] + ", " + welcome_template
+                    text="Hi @" + user["profile"]["display_name"] + ", \n" + welcome_template
                 )
                 return make_response("", 200)
 

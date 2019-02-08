@@ -27,11 +27,27 @@ def check():
             event_type = events_data["event"]["type"]
 
             if event_type == "app_mention":
-                sc.api_call(
-                    "chat.postMessage",
-                    channel=general_channel,
-                    text="Hi, I will be your assistant. For now this is all I can do!"
-                )
+                text = events_data["event"]["text"].lower()
+                user_id = events_data["event"]["user"]
+                if "hi" in text:
+                    sc.api_call(
+                        "chat.postMessage",
+                        channel=general_channel,
+                        text="Hi <@" + user_id + ">, what can I do for you?"
+                    )
+                elif "channel topic" in text:
+                    response_text = "This channel is to help aspiring GSoC students get accepted into the program. If you are not a GSoC veteran(i.e you are here to get help on getting into gsoc) introduce yourself ( 2 Names and Profile picture) so we get to know you."
+                    sc.api_call(
+                        "chat.postMessage",
+                        channel=general_channel,
+                        text=response_text
+                    )
+                else:
+                    sc.api_call(
+                        "chat.postMessage",
+                        channel=general_channel,
+                        text="Hi <@" + user_id + ">, sorry I can't help you with that."
+                    )
                 return make_response("", 200)
             
             if event_type == "team_join":

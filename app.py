@@ -30,37 +30,32 @@ def check():
                 text = events_data["event"]["text"].lower()
                 user_id = events_data["event"]["user"]
                 if "hi" in text:
-                    sc.api_call(
-                        "chat.postMessage",
-                        channel=general_channel,
-                        text="Hi <@" + user_id + ">, what can I do for you?"
-                    )
+                    send_message("Hi <@" + user_id + ">, what can I do for you? Type\n*channel topic* to see topic for this channel\n*gsoc website* to get link to Google Summer of Code website\n*updates* to get GSoC related updates")
                 elif "channel topic" in text:
-                    response_text = "This channel is to help aspiring GSoC students get accepted into the program. If you are not a GSoC veteran(i.e you are here to get help on getting into gsoc) introduce yourself ( 2 Names and Profile picture) so we get to know you."
-                    sc.api_call(
-                        "chat.postMessage",
-                        channel=general_channel,
-                        text=response_text
-                    )
+                    send_message("This channel is to help aspiring GSoC students get accepted into the program. If you are not a GSoC veteran(i.e you are here to get help on getting into gsoc) introduce yourself ( 2 Names and Profile picture) so we get to know you.")
+                elif "gsoc website" in text:
+                    send_message("Google Summer of Code official website https://summerofcode.withgoogle.com/")
+                elif "updates" in text:
+                    send_message("There isn't any updates for now.")
                 else:
-                    sc.api_call(
-                        "chat.postMessage",
-                        channel=general_channel,
-                        text="Hi <@" + user_id + ">, sorry I can't help you with that."
-                    )
+                    send_message("Hi <@" + user_id + ">, sorry I can't help you with that. Type\n*channel topic* to see topic for this channel\n*gsoc website* to get link to Google Summer of Code website\n*updates* to get GSoC related updates")
                 return make_response("", 200)
             
             if event_type == "team_join":
                 user = events_data["event"]["user"]
                 welcome_template = "Welcome to Cameroon GSoCers Workspace. \nTell us a little bit about yourself, Your Real Names, Location, \nSpecialty/Department, Your Interests, Any specific questions ? \nLearn Netiquette Rules on http://www.albion.com/netiquette/corerules.html \nLearn How To Ask Smart Questions on http://www.catb.org/esr/faqs/smart-questions.html \nRemember to put your Real Names on your profile and a professional profile picture :) \nTake note of the channel topic and ALL pinned posts"
-                sc.api_call(
-                    "chat.postMessage",
-                    channel=general_channel,
-                    text="Hi <@"+user+"> ," + welcome_template
-                )
+                send_message("Hi <@" + user + "> ," + welcome_template)
                 return make_response("", 200)
 
         return make_response("Not implemented.", 404)
+
+
+def send_message(msg):
+    sc.api_call(
+        "chat.postMessage",
+        channel=general_channel,
+        text=msg
+    )
 
 
 if __name__ == '__main__':

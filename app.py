@@ -10,6 +10,7 @@ sc = SlackClient(slack_token)
 general_channel = "C93RP3CSG"
 introductions_channel = "CFQV2533L"
 
+
 @app.route('/', methods=['GET', 'POST'])
 def check():
     if request.method == 'GET':
@@ -25,7 +26,7 @@ def check():
         if "event" in events_data:
             event_type = events_data["event"]["type"]
 
-            if (event_type == "app_mention"):
+            if event_type == "app_mention":
                 sc.api_call(
                     "chat.postMessage",
                     channel=general_channel,
@@ -33,7 +34,7 @@ def check():
                 )
                 return make_response("", 200)
             
-            if (event_type == "team_join"):
+            if event_type == "team_join":
                 user = events_data["event"]["user"]
                 welcome_template = "Welcome to Cameroon GSoCers Workspace. \nTell us a little bit about yourself, Your Real Names, Location, \nSpecialty/Department, Your Interests, Any specific questions ? \nLearn Netiquette Rules on http://www.albion.com/netiquette/corerules.html \nLearn How To Ask Smart Questions on http://www.catb.org/esr/faqs/smart-questions.html \nRemember to put your Real Names on your profile and a professional profile picture :) \nTake note of the channel topic and ALL pinned posts"
                 sc.api_call(
@@ -44,6 +45,7 @@ def check():
                 return make_response("", 200)
 
         return make_response("Not implemented.", 404)
+
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)

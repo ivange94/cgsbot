@@ -40,7 +40,7 @@ def check():
                 sc.api_call(
                     "chat.postMessage",
                     channel=general_channel,
-                    text="Hi @" + user["profile"]["display_name"] + ", \n" + welcome_template
+                    text="Hi <@"+user+"> ," + welcome_template
                 )
                 return make_response("", 200)
 
